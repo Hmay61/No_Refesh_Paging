@@ -21,21 +21,21 @@
 	
 	</style>
 	<script type="text/javascript">
-		//制作函数，（用ajax去获得分页信息）
+		//create function，（use ajax to get the paging information）
 		function showpage(url){
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function(){
 				if(xhr.readyState==4) {
 					
 					//alert(xhr.responseText);
-					//把字符串的js信息，变为实体的（array/object）的js 信息
+					//string json information --> (array/object)Json information
 					eval("var json_info="+xhr.responseText);//[jn,jn,jn,jn,jn]
 					//alert(json_info);  //[object Object],[object Object],[object Object],[object Object],[object Object]
 
 					var s ="<table><tr><th>proID</th><th>proName</th><th>proQuantity</th><th>proPrice</th><th>proImage</th></tr>";
 
 					for(var i=0;i<json_info.length-1;i++){
-						//把html标签和获得数据信息拼装起来
+						//combine the html tag and data
 						s += "<tr>";
 						s += "<td>"+json_info[i].id+"</td>";
 						s += "<td>"+json_info[i].nm+"</td>";
@@ -62,7 +62,7 @@
 </head>
 
 <body>	
-	<h2>ajax无刷新分页效果</h2>
+	<h2>ajax no refresh paging </h2>
 	<div id="d1">
 		
 	</div>
