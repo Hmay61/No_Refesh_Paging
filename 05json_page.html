@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<style type="text/css">
+		h2,div{
+			width:700px;
+			margin:auto;		
+		}
+		h2{
+			text-align: center;
+		}
+
+	
+			table,td{
+				width:700px;
+				margin:auto;
+				border: 1px solid green;
+				border-collapse: collapse;
+			}
+	
+	</style>
+	<script type="text/javascript">
+		//制作函数，（用ajax去获得分页信息）
+		function showpage(url){
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState==4) {
+					
+					//alert(xhr.responseText);
+					//把字符串的js信息，变为实体的（array/object）的js 信息
+					eval("var json_info="+xhr.responseText);//[jn,jn,jn,jn,jn]
+					//alert(json_info);  //[object Object],[object Object],[object Object],[object Object],[object Object]
+
+					var s ="<table><tr><th>proID</th><th>proName</th><th>proQuantity</th><th>proPrice</th><th>proImage</th></tr>";
+
+					for(var i=0;i<json_info.length-1;i++){
+						//把html标签和获得数据信息拼装起来
+						s += "<tr>";
+						s += "<td>"+json_info[i].id+"</td>";
+						s += "<td>"+json_info[i].nm+"</td>";
+						s += "<td>"+json_info[i].qu+"</td>";
+						s += "<td>"+json_info[i].pr+"</td>";
+						s += "<td>"+json_info[i].im+"</td>";
+						s += "</tr>";
+						//json_info[i];
+					}
+					s += "<tr>"+"<td colspan=5>"+json_info[json_info.length-1]+"</td>"+"</tr>";
+					s += "</table>";
+					document.getElementById('d1').innerHTML = s;
+				}
+			}
+			//xhr.open('get','./data.php');
+			xhr.open('get',url);
+			xhr.send(null);
+		}
+
+		window.onload = function(){
+			showpage('./05json_page.php');
+		}	
+	</script>
+</head>
+
+<body>	
+	<h2>ajax无刷新分页效果</h2>
+	<div id="d1">
+		
+	</div>
+</body>
+</html>
